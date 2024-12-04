@@ -1,0 +1,24 @@
+version: '3'
+services:
+  app:
+    image: test:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/test
+      SPRING_DATASOURCE_USERNAME: test
+      SPRING_DATASOURCE_PASSWORD: test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    environment:
+      - "POSTGRES_DB=test"
+      - "POSTGRES_USER=test"
+      - "POSTGRES_PASSWORD=test"
+    ports:
+      - "5432:5432"
